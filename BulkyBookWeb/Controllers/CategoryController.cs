@@ -19,7 +19,7 @@ namespace BulkyBookWeb.Controllers
             return View(objCategoryList);
         }
 
-        //Get
+        //GET
         public IActionResult Create()
         {
             return View();
@@ -42,5 +42,33 @@ namespace BulkyBookWeb.Controllers
             return View(category);
         }
 
+        //GET
+        public IActionResult Edit(int? id)
+        {
+            if(id== null || id ==0)
+                return NotFound();
+
+            var categoryFromDb = _db.Categories.Find(id);
+            //var categoryFromDbList = _db.Categories.FirstOrDefault(u => u.Id == id);
+            //var categoryFromDbSingle = _db.Categories.SingleOrDefault(u => u.Id == id);
+
+            if(categoryFromDb == null)
+            {
+                return NotFound();
+            }
+
+            return View(categoryFromDb);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Category category)
+        {
+            if (ModelState.IsValid)
+            {
+                return RedirectToAction("Index");
+            }
+            return View(category);
+        }
     }
+
 }
