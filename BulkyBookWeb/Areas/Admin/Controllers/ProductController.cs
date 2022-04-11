@@ -19,5 +19,27 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             IEnumerable<Product> products = _unitOfWork.Product.GetAll();
             return View(products);
         }
+
+        public IActionResult Upsert(int? id)
+        {
+            Product product = new Product();
+            if(id == null || id == 0)
+            {
+                //Create
+                return View(product);
+            }
+            else
+            {
+                //Update
+            }
+            return View(product);
+
+        }
+
+        [HttpPost]
+        public IActionResult Upsert()
+        {
+            return View();
+        }
     }
 }
