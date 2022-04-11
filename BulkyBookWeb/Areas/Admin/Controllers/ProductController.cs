@@ -30,7 +30,7 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             {
                 //Create
                 ViewBag.CategoryList = categoryList;
-                ViewBag.CoverTypeList = coverTypeList;
+                ViewData["CoverTypeList"] = coverTypeList;
                 return View(product);
             }
             else
