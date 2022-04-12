@@ -19,9 +19,8 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
         }
 
         public IActionResult Index()
-        {
-            IEnumerable<Product> products = _unitOfWork.Product.GetAll();
-            return View(products);
+        {            
+            return View();
         }
 
         public IActionResult Upsert(int? id)
@@ -74,5 +73,13 @@ namespace BulkyBookWeb.Areas.Admin.Controllers
             }
             return View(obj);
         }
+        #region API CALLS
+        [HttpGet]
+        public IActionResult GetAll()
+        {
+            var productList = _unitOfWork.Product.GetAll();
+            return Json(new { data = productList });
+        }
+        #endregion
     }
 }
