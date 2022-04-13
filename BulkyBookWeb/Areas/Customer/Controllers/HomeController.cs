@@ -1,4 +1,5 @@
-﻿using BulkyBook.Models;
+﻿using BulkyBook.DataAccess.Repository.IRepository;
+using BulkyBook.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -8,15 +9,18 @@ namespace BulkyBookWeb.Controllers
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly IUnitOfWork _unityOfWork;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ILogger<HomeController> logger, IUnitOfWork unityOfWork)
         {
             _logger = logger;
+            _unityOfWork = unityOfWork;
         }
 
         public IActionResult Index()
         {
-            return View();
+            IEnumerable<Product> productList = _unityOfWork.Product.GetAll(includeProperties:"Category,CoverType");
+            return View(productList);
         }
 
         public IActionResult Privacy()
